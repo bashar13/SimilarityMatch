@@ -1,5 +1,8 @@
 package com.company.bashar;
 
+import com.intellij.ui.AnimatedIcon;
+
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +11,7 @@ public class Main {
 
     public static void main(String args[]) throws NoSuchAlgorithmException
     {
-        String s = "My name is Jahid";
+        String s = "My name is";
 
         String hashValue = MdFiveHashFunction.getMd5(s);
 
@@ -18,20 +21,26 @@ public class Main {
         String xValue = hashValue.substring(0, 16);
         String yValue = hashValue.substring(16);
 
+        //String hashtext = xValue.toString(10);
+
         System.out.println(xValue);
         System.out.println(yValue);
 
-        //Long xCoordinator = Long.valueOf(Integer.parseInt(xValue, 16));
+        BigInteger xCoordinator = new BigInteger(xValue, 16);
+        BigInteger yCoordinator = new BigInteger(yValue, 16);
 
-        //System.out.println(xCoordinator);
+        BigInteger bi = xCoordinator.add(yCoordinator);
+
+
+        System.out.println(xCoordinator);
+        System.out.println(yCoordinator);
 
 
         List list = new ArrayList();
 
-        list.add(2);
-        list.add(4);
-        list.add(5);
-        list.add(1);
+        list.add(xCoordinator);
+        list.add(yCoordinator);
+
 
         System.out.println(CenterOfMass.calculate(list));
     }
