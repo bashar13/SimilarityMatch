@@ -5,8 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 // Class to calculate MD5 hash value
-public class MdFiveHashFunction {
-    public static String getMd5(String input)
+class MdFiveHashFunction {
+    static String getMd5(String input)
     {
         try {
 
