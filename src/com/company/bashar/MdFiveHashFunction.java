@@ -27,7 +27,7 @@ class MdFiveHashFunction {
             while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
-            return hashtext.toUpperCase();
+            return hashtext;
         }
 
         // For specifying wrong message digest algorithms
