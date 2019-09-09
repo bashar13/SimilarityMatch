@@ -30,12 +30,16 @@ public class SpanningTreeDataModel {
 
     }
 
-    public double getXCoordinate() {
+    double getXCoordinate() {
         return xCoordinate;
     }
 
-    public double getYCoordinate() {
+    double getYCoordinate() {
         return yCoordinate;
+    }
+
+    String getPointLabel() {
+        return pointLabel;
     }
 
     private void printObjectValues() {
