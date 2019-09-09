@@ -33,4 +33,7 @@ Idea: Center of mass calculation approach
 1. The program is developed in IntelliJ Idea IDE. If you have IntelliJ Idea installed in your PC, simply open the project in the IDE.
 2. The Ant build script (antBuild.xml) is provided with the project. You can also use the Ant build to run the project, if you have the environemnt for that.
 
+- Important Tags:
+1. idea1: final implementation of center of mass idea
+
 
