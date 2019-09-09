@@ -3,94 +3,78 @@ package com.company.bashar;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class Main {
 
+    private static ArrayList<Integer> result = new ArrayList<>();
+
     public static void main(String args[]) throws NoSuchAlgorithmException
     {
-        final int numberOfTransactionsToTest = 300;
+        final int numberOfTransactionsToTest = 6;
 
         //parse CSV file and store all the transactions in a TransactionDataModel ArrayList
         OpenCSVReader.parseCSVFile();
 
-        //print the transactions for Test Purpose
+        //print the transactions for log Purpose
 //        printTransactions(OpenCSVReader.listOfTransactions);
 
         ArrayList<TransactionDataModel> transactions =
                 geRandomTransactions(OpenCSVReader.listOfTransactions, numberOfTransactionsToTest);
 
-//        printTransactions(transactions);
+        ArrayList<SpanningTreeDataModel> pointsOfTransactions = getPointsOfTransactions(transactions);
+//        for (SpanningTreeDataModel item: pointsOfTransactions) {
+//            System.out.println(item.getXCoordinate());
+//        }
 
-        CenterOfMassDataModel mainModel =  calculateCenterOfMassForListOfTransactions(transactions);
+        //sort the array pointsOfTransactions by the x value
+        //Therefore, the starting point is always the point with minimum value of x
+        Collections.sort(pointsOfTransactions, new Comparator<SpanningTreeDataModel>() {
+            @Override
+            public int compare(SpanningTreeDataModel o1, SpanningTreeDataModel o2) {
+                return Double.compare(o1.getXCoordinate(), o2.getXCoordinate());
+            }
+        });
 
-        System.out.println(mainModel.xPoint);
-        System.out.println(mainModel.yPoint);
+//        System.out.println("Sorted order: ");
+//        for (SpanningTreeDataModel item: pointsOfTransactions) {
+//            System.out.println(item.getXCoordinate());
+//        }
 
-        //test model by modifying k number of transactions in transactions List
-        removeOutputFileContents();
-        Random rand = new Random();
-        for(int k = 1; k<=10; k++) {
-            transactions.remove(k);
+        //create an adjacency matrix of all the points connected with each other by the euclidean distance between them
+        double graph[][] = new double[numberOfTransactionsToTest][numberOfTransactionsToTest];
 
-            int randomPickIndex = rand.nextInt(OpenCSVReader.listOfTransactions.size() - 1);
-            TransactionDataModel pickedTransaction = OpenCSVReader.listOfTransactions.get(randomPickIndex);
-            transactions.add(pickedTransaction);
-
-            CenterOfMassDataModel testModel =  calculateCenterOfMassForListOfTransactions(transactions);
-
-            double result = EuclideanDistanceCalculator.calculate(mainModel, testModel);
-
-            String resultStr = "Transaction changed (K) = " + k + "   " + "Euclidean Distance = " + result + "\n";
-
-            System.out.print(resultStr);
-            appendResultToFile("output.txt", resultStr);
-
+        for(int i = 0; i < numberOfTransactionsToTest; i++) {
+            for(int j = 0; j < numberOfTransactionsToTest; j++) {
+                graph[i][j] = EuclideanDistanceCalculator.calculate(pointsOfTransactions.get(i), pointsOfTransactions.get(j));
+            }
         }
 
+        //print the adjacency for log purpose
+        for(int i = 0; i < numberOfTransactionsToTest; i++) {
+            for(int j = 0; j < numberOfTransactionsToTest; j++) {
+                System.out.print(graph[i][j] + "  ");
+            }
+            System.out.println();
+        }
+
+        //apply prims algorithm to find a minimum spanning tree
+        PrimsAlgorithmMST mst = new PrimsAlgorithmMST();
+        mst.primMST(graph);
+
+        //print MST graph for log purpose
+        for(int i = 0; i < numberOfTransactionsToTest; i++) {
+            for(int j = 0; j < numberOfTransactionsToTest; j++) {
+                System.out.print(graph[i][j] + "  ");
+            }
+            System.out.println();
+        }
 
 
     }
 
-    private static void printTransactions(ArrayList<TransactionDataModel> list) {
-
-        for (TransactionDataModel item: list) {
-            item.printTransactions();
-        }
-    }
-
-    private static CenterOfMassDataModel calculateCenterOfMassForListOfTransactions(ArrayList<TransactionDataModel> transactions) {
-        List<BigInteger> xPoints = new ArrayList();
-        List<BigInteger> yPoints = new ArrayList();
-
-        for(TransactionDataModel item : transactions) {
-            String concatenatedString = item.buildStringFromTransactions();
-
-            String hashValue = MdFiveHashFunction.getMd5(concatenatedString);
-//            System.out.println("Your HashCode length: " + hashValue.length());
-//            System.out.println("Your HashCode Generated by MD5 is: " + hashValue);
-
-            String xHashValue = hashValue.substring(0, 16);
-            String yHashValue = hashValue.substring(16);
-
-            BigInteger xPoint = new BigInteger(xHashValue, 16);
-            BigInteger yPoint = new BigInteger(yHashValue, 16);
-
-            xPoints.add(xPoint);
-            yPoints.add(yPoint);
-
-        }
-
-        CenterOfMassDataModel point = new CenterOfMassDataModel(CenterOfMassCalculator.calculateCenterOfAxis(xPoints),
-                CenterOfMassCalculator.calculateCenterOfAxis(yPoints));
-
-        return point;
-    }
-
-    //select random transactions without repetition
+        //select random transactions without repetition
     private static ArrayList<TransactionDataModel> geRandomTransactions(ArrayList<TransactionDataModel> list,
                                                                         int totalItems)
     {
@@ -113,6 +97,39 @@ public class Main {
         }
         return selectedList;
     }
+
+    private static ArrayList<SpanningTreeDataModel> getPointsOfTransactions (ArrayList<TransactionDataModel> transactionList) {
+        ArrayList<SpanningTreeDataModel> pointList = new ArrayList<>();
+
+        for(TransactionDataModel item : transactionList) {
+            String concatenatedString = item.buildStringFromTransactions();
+
+            String hashValue = MdFiveHashFunction.getMd5(concatenatedString);
+//            System.out.println("Your HashCode length: " + hashValue.length());
+//            System.out.println("Your HashCode Generated by MD5 is: " + hashValue);
+
+            String xHashValue = hashValue.substring(0, 16);
+            String yHashValue = hashValue.substring(16);
+
+            BigInteger xPoint = new BigInteger(xHashValue, 16);
+            String x = xPoint.toString(10);
+            double xValue = Double.parseDouble(x);
+
+            BigInteger yPoint = new BigInteger(yHashValue, 16);
+            String y = yPoint.toString(10);
+            double yValue = Double.parseDouble(y);
+
+            pointList.add(new SpanningTreeDataModel(xValue, yValue));
+        }
+
+        System.out.println("Total list of points: " + pointList.size());
+        return pointList;
+    }
+
+    private static void treeTraversal(int root) {
+        
+    }
+
 
     private static void appendResultToFile(String fileName,
                                        String str)

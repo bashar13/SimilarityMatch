@@ -34,7 +34,7 @@ class OpenCSVReader {
         }
 
 
-        System.out.println(listOfTransactions.size());
+        System.out.println("total transaction in file: " + listOfTransactions.size());
     }
 
 
