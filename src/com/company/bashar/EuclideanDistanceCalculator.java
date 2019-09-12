@@ -1,8 +1,18 @@
+//
+//  EuclideanDistanceCalculator.java
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 
-import com.android.aapt.Resources;
-
 class EuclideanDistanceCalculator {
+
+    /*
+    Calculates euclidean distance between two points
+    Parameter: takes two SpanningTreeDataModel objects as points
+    Return: returns a double value, the euclidean distance of two given points
+     */
 
     static double calculate(SpanningTreeDataModel point1, SpanningTreeDataModel point2) {
 

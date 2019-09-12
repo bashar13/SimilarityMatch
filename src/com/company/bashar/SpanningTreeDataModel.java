@@ -1,3 +1,10 @@
+//
+//  SpanningTreeDataModel.java
+//  A data model class represents a point with it's label on a xy plane
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 import org.jetbrains.annotations.NotNull;
 

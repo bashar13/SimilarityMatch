@@ -1,3 +1,9 @@
+//
+//  MdFiveHashFunction.java
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 
 import java.math.BigInteger;
@@ -6,6 +12,12 @@ import java.security.NoSuchAlgorithmException;
 
 // Class to calculate MD5 hash value
 class MdFiveHashFunction {
+
+    /*
+    Calculates an unique hash value for the given input string
+    Parameter: String- the input string
+    Returns: hash value in String format
+     */
     static String getMd5(String input)
     {
         try {

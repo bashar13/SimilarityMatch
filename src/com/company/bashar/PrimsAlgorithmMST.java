@@ -1,3 +1,12 @@
+//
+//  PrimsAlgorithmMST.java
+//  Calculates minimum spanning tree for a given adjacency matrix graph[][] input
+//  Returns the graph[][] by updating the values to represent minimum spanning tree
+//  value 1 represents an edge of the spanning tree, while any other values are considered ignored
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 
 import java.util.*;

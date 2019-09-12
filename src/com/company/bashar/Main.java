@@ -9,6 +9,7 @@ import java.util.*;
 
 public class Main {
 
+    //records the sequence of points after traversing the MST
     private static ArrayList<Integer> result = new ArrayList<>();
 
 
@@ -67,7 +68,7 @@ public class Main {
 
     }
 
-        //select random transactions without repetition
+    //select random transactions without repetition
     private static ArrayList<TransactionDataModel> geRandomTransactions(ArrayList<TransactionDataModel> list,
                                                                         int totalItems)
     {
@@ -91,6 +92,9 @@ public class Main {
         return selectedList;
     }
 
+    /*
+    creates hash value for a given transaction and represents as a (x,y) point
+     */
     private static SpanningTreeDataModel getPointsOfTransactions (TransactionDataModel transaction) {
 
 
@@ -116,6 +120,9 @@ public class Main {
         return spanningTreeDataModel;
     }
 
+    /*
+    does the steps 4-7 mentioned in the README.md file
+     */
     private static void mstTraversalForPointsOfTransactions(double graph[][], ArrayList<SpanningTreeDataModel> pointsOfTransactions, int total) {
         for(int i = 0; i < total; i++) {
             for(int j = 0; j < total; j++) {
@@ -153,6 +160,10 @@ public class Main {
         appendResultToFile("output.txt", resultString);
     }
 
+    /*
+    Traverses the MST in post order
+    output: populates the result array in traversing order
+     */
     private static void treeTraversal(int root, double graph[][], ArrayList<SpanningTreeDataModel> pointsOfTransactions, int total) {
         ArrayList<Integer> childList = new ArrayList<>();
         for(int i=0; i<total; i++) {
@@ -169,6 +180,9 @@ public class Main {
         result.add(root);
     }
 
+    /*
+    sorts the child nodes(points) of a parent node (point) by their y value or x value (if y value is equal)
+     */
     private static void sortChildrens(ArrayList<Integer> childList, ArrayList<SpanningTreeDataModel> pointsOfTransactions) {
         int size = childList.size();
         for(int i=0; i < size-1; i++) {
@@ -191,6 +205,11 @@ public class Main {
         childList.set(q, temp);
     }
 
+    /*
+    creates a string a sequential labels of the points generated after traversing the MST
+    Parameters: pointsOfTransactions- ArrayList of point objects participated in generating the MST
+    Returns: String - string by concatenating the labels of the points in result array
+     */
     private static String createStringForTheResultArraybyLabel(ArrayList<SpanningTreeDataModel> pointsOfTransactions) {
 
         StringBuilder concatenateStrings = new StringBuilder();
@@ -204,7 +223,9 @@ public class Main {
         return concatenateStrings.toString();
     }
 
-
+    /*
+    writes the result in the output.txt after each execution
+     */
     private static void appendResultToFile(String fileName,
                                        String str)
     {
@@ -221,6 +242,9 @@ public class Main {
         }
     }
 
+    /*
+    deletes the contents of output.txt before each execution
+     */
     private static void removeOutputFileContents() {
         try {
             PrintWriter output = new PrintWriter("output.txt");

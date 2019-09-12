@@ -1,3 +1,10 @@
+//
+//  TransactionDataModel.java
+//  A data model class, blueprint of an object that represent a transaction
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 
 class TransactionDataModel {

@@ -1,3 +1,9 @@
+//
+//  OpenCSVReader.java
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 
 import com.opencsv.CSVReader;
@@ -13,6 +19,10 @@ class OpenCSVReader {
     private static final String CSV_FILE_PATH = "./DataSource/data.csv";
 
     static ArrayList<TransactionDataModel> listOfTransactions = new ArrayList<>();
+
+    /*
+    Uses the library opencsv-4.6.jar to parse data from .csv file in CSV_FILE_PATH
+     */
 
     static void parseCSVFile () {
 

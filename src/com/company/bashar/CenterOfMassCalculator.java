@@ -1,3 +1,9 @@
+//
+//  CenterOfMassCalculator.java
+//
+//  Created by Khairul Bashar on 25/6/19.
+//
+
 package com.company.bashar;
 
 import java.math.BigInteger;
@@ -5,7 +11,10 @@ import java.util.List;
 
 class CenterOfMassCalculator {
 
-    //calculate center of mass for x axis or y axis
+    /*calculate center of mass for a list of values
+    Parameter: list- a list of BigInteger
+    Return: a double value, center of mass of 'list'
+     */
 
     static double calculateCenterOfAxis (List<BigInteger> list) {
 
