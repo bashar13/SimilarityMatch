@@ -1,5 +1,5 @@
 # SimilarityMatch
-Idea: Minimum Spanning Tree Traversal approach
+## Idea: Minimum Spanning Tree Traversal approach
 - Steps:
 1. Pick a random number of transactions from the data source (e.g. a set of 500 random transactions).
 2. Represent each transaction in the set as an (x,y) point
@@ -12,16 +12,16 @@ Idea: Minimum Spanning Tree Traversal approach
 6. Do a post-order traversal on the MST and store the sequence of the vertices/points traversed.
 7. Represent the points by the label and output a string containing the sequence of labels
 
-- To compare two sets of transactions
+### To compare two sets of transactions
 8. Modify the previous set of transactions by removing or/and adding one or multiple transactions from the list
 9. Apply steps 1 to 7 to the new set of transactions and output a string containing the sequence of labels
 
 10. Now, to determine the similarity between the two sets of transactions, we apply the edit distance technique on the output strings (To-Do).
 
-- Observation:
+## Observation:
 1. The result after applying the edit distance technique will tell us how similar the two set of transactions.
 
-- Class descriptions:
+## Class descriptions:
 1. Main.java - Launcher class. All the step by step logic is written in this class.
 2. OpenCSVReader.java - Read the .csv file in the data DataSource folder.
 3. MdFiveHashFunction.java - Generates unique hash value for a given input string
@@ -30,14 +30,14 @@ Idea: Minimum Spanning Tree Traversal approach
 6. SpanningTreeDataModel.java - A data model class, the blueprint of an object that represents a point in XY plane.
 7. PrimsAlgorithmMST.java - implementation of Prim's algorithm to calculate the minimum-spanning tree of a given graph
 
-- The output.txt sample
+## The output.txt sample
 1. output string for the main set of transactions
 - 21586.0, 51705.0, 38096.0, 22761.0, 10478.0, 7070.0
 2. output string for the main set of transactions modified by 1 transaction
 - 21586.0, 38096.0, 34544.0, 22761.0, 10478.0, 7070.0
 
 
-- Hor to run:
+## Hor to run:
 - JDK 1.8
 - Java language version 8
 - libraries: opencsv-4.6.jar, commons-lang3-3.9.jar
@@ -45,7 +45,7 @@ Idea: Minimum Spanning Tree Traversal approach
 1. The program is developed in IntelliJ Idea IDE. If you have IntelliJ Idea installed in your PC, simply open the project in the IDE.
 2. The Ant build script (antBuild.xml) is provided with the project. You can also use the Ant build to run the project if you have the environment for that.
 
-- Important Tags:
+## Important Tags:
 1. idea1: final implementation of center of mass idea
 
 
